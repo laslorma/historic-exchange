@@ -1,0 +1,25 @@
+{
+    "bsrateApp": {
+        "exchangeRate" : {
+            "home": {
+                "title": "Exchange Rates",
+                "createLabel": "Crear nuevo Exchange Rate",
+                "createOrEditLabel": "Crear o editar Exchange Rate"
+            },
+            "created": "Un nuevo Exchange Rate ha sido creado con el identificador {{ param }}",
+            "updated": "Un Exchange Rate ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Exchange Rate ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Exchange Rate {{ id }}?"
+            },
+            "detail": {
+                "title": "Exchange Rate"
+            },
+            "date": "Date",
+            "fromcurrency": "Fromcurrency",
+            "tocurrency": "Tocurrency",
+            "conversionvalue": "Conversionvalue",
+            "sistema": "Sistema"
+        }
+    }
+}

@@ -1,0 +1,15 @@
+entity ExchangeRate{
+date LocalDate required,
+from_currency String,
+to_currency String,
+conversion_value BigDecimal required,
+sistema Sistema
+}
+
+enum Sistema{
+NEGRO, CADIVI, CENCOEX, SIMADI
+
+}
+
+paginate ExchangeRate with pager
+service all with serviceImpl

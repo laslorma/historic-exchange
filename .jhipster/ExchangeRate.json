@@ -1,0 +1,38 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "date",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "fromcurrency",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "tocurrency",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "conversionvalue",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "sistema",
+            "fieldType": "Sistema",
+            "fieldValues": "NEGRO,CADIVI,CENCOEX,SIMADI"
+        }
+    ],
+    "changelogDate": "20170702185849",
+    "entityTableName": "exchange_rate",
+    "dto": "no",
+    "pagination": "pager",
+    "service": "serviceImpl"
+}
