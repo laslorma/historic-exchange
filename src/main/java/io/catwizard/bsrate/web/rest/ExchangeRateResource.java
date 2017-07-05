@@ -2,7 +2,8 @@ package io.catwizard.bsrate.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import io.catwizard.bsrate.domain.ExchangeRate;
-import io.catwizard.bsrate.service.ExchangeRateService;
+
+import io.catwizard.bsrate.repository.ExchangeRateRepository;
 import io.catwizard.bsrate.web.rest.util.HeaderUtil;
 import io.catwizard.bsrate.web.rest.util.PaginationUtil;
 import io.swagger.annotations.ApiParam;
@@ -34,10 +35,10 @@ public class ExchangeRateResource {
 
     private static final String ENTITY_NAME = "exchangeRate";
 
-    private final ExchangeRateService exchangeRateService;
+    private final ExchangeRateRepository exchangeRateRepository;
 
-    public ExchangeRateResource(ExchangeRateService exchangeRateService) {
-        this.exchangeRateService = exchangeRateService;
+    public ExchangeRateResource(ExchangeRateRepository exchangeRateRepository) {
+        this.exchangeRateRepository = exchangeRateRepository;
     }
 
     /**
@@ -54,7 +55,7 @@ public class ExchangeRateResource {
         if (exchangeRate.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new exchangeRate cannot already have an ID")).body(null);
         }
-        ExchangeRate result = exchangeRateService.save(exchangeRate);
+        ExchangeRate result = exchangeRateRepository.save(exchangeRate);
         return ResponseEntity.created(new URI("/api/exchange-rates/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -76,7 +77,7 @@ public class ExchangeRateResource {
         if (exchangeRate.getId() == null) {
             return createExchangeRate(exchangeRate);
         }
-        ExchangeRate result = exchangeRateService.save(exchangeRate);
+        ExchangeRate result = exchangeRateRepository.save(exchangeRate);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, exchangeRate.getId().toString()))
             .body(result);
@@ -92,7 +93,7 @@ public class ExchangeRateResource {
     @Timed
     public ResponseEntity<List<ExchangeRate>> getAllExchangeRates(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of ExchangeRates");
-        Page<ExchangeRate> page = exchangeRateService.findAll(pageable);
+        Page<ExchangeRate> page = exchangeRateRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/exchange-rates");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -107,7 +108,7 @@ public class ExchangeRateResource {
     @Timed
     public ResponseEntity<ExchangeRate> getExchangeRate(@PathVariable Long id) {
         log.debug("REST request to get ExchangeRate : {}", id);
-        ExchangeRate exchangeRate = exchangeRateService.findOne(id);
+        ExchangeRate exchangeRate = exchangeRateRepository.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(exchangeRate));
     }
 
@@ -121,7 +122,20 @@ public class ExchangeRateResource {
     @Timed
     public ResponseEntity<Void> deleteExchangeRate(@PathVariable Long id) {
         log.debug("REST request to delete ExchangeRate : {}", id);
-        exchangeRateService.delete(id);
+        exchangeRateRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+    // Por Ernesto
+
+    @GetMapping("/exchange-rates/search/date")
+        @Timed
+        public ResponseEntity<ExchangeRate> searchByDate(@Valid @RequestBody ExchangeRate exchangeRate) throws URISyntaxException {
+            log.debug("REST request to search ExchangeRate By Date : {}", exchangeRate.getDate());
+
+
+            ExchangeRate exchangeRateResult = exchangeRateRepository.findByDate(exchangeRate.getDate());
+
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(exchangeRateResult));
+        }
 }

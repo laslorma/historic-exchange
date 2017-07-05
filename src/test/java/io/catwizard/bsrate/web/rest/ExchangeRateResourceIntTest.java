@@ -4,7 +4,6 @@ import io.catwizard.bsrate.BsrateApp;
 
 import io.catwizard.bsrate.domain.ExchangeRate;
 import io.catwizard.bsrate.repository.ExchangeRateRepository;
-import io.catwizard.bsrate.service.ExchangeRateService;
 import io.catwizard.bsrate.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -61,9 +60,6 @@ public class ExchangeRateResourceIntTest {
     private ExchangeRateRepository exchangeRateRepository;
 
     @Autowired
-    private ExchangeRateService exchangeRateService;
-
-    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -82,7 +78,7 @@ public class ExchangeRateResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        ExchangeRateResource exchangeRateResource = new ExchangeRateResource(exchangeRateService);
+        ExchangeRateResource exchangeRateResource = new ExchangeRateResource(exchangeRateRepository);
         this.restExchangeRateMockMvc = MockMvcBuilders.standaloneSetup(exchangeRateResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -235,8 +231,7 @@ public class ExchangeRateResourceIntTest {
     @Transactional
     public void updateExchangeRate() throws Exception {
         // Initialize the database
-        exchangeRateService.save(exchangeRate);
-
+        exchangeRateRepository.saveAndFlush(exchangeRate);
         int databaseSizeBeforeUpdate = exchangeRateRepository.findAll().size();
 
         // Update the exchangeRate
@@ -286,8 +281,7 @@ public class ExchangeRateResourceIntTest {
     @Transactional
     public void deleteExchangeRate() throws Exception {
         // Initialize the database
-        exchangeRateService.save(exchangeRate);
-
+        exchangeRateRepository.saveAndFlush(exchangeRate);
         int databaseSizeBeforeDelete = exchangeRateRepository.findAll().size();
 
         // Get the exchangeRate
@@ -313,5 +307,22 @@ public class ExchangeRateResourceIntTest {
         assertThat(exchangeRate1).isNotEqualTo(exchangeRate2);
         exchangeRate1.setId(null);
         assertThat(exchangeRate1).isNotEqualTo(exchangeRate2);
+    }
+
+    // Tests de Ernesto
+    @Test
+    @Transactional
+    public void searchByDate() throws Exception {
+
+        // Initialize the database
+        exchangeRateRepository.saveAndFlush(exchangeRate);
+
+          //
+        restExchangeRateMockMvc.perform(get("/api/exchange-rates/search/date")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(exchangeRate)))
+            .andExpect(status().isOk());
+
+
     }
 }
