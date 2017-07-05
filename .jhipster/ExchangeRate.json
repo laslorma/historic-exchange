@@ -34,5 +34,5 @@
     "entityTableName": "exchange_rate",
     "dto": "no",
     "pagination": "pager",
-    "service": "serviceImpl"
+    "service": "no"
 }

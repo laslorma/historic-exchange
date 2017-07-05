@@ -97,7 +97,9 @@
             "edit": "Edit",
             "open": "Open",
             "save": "Save",
-            "view": "View"
+            "view": "View",
+            "search": "Search"
+
         },
         "detail": {
             "field": "Field",
