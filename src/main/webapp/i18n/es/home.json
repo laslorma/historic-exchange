@@ -1,7 +1,7 @@
 {
     "home": {
-        "title": "¡Bienvenido, Java Hipster!",
-        "subtitle": "Esta es su página de inicio",
+        "title": "Bienvenido a la maquina del tiempo",
+        "subtitle": "Un lugar para consultar la historia y el valor del Bs y Bsf",
         "logged": {
             "message": "Está conectado como \"{{username}}\"."
         },
