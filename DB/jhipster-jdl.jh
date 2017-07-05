@@ -12,4 +12,3 @@ NEGRO, CADIVI, CENCOEX, SIMADI
 }
 
 paginate ExchangeRate with pager
-service all with serviceImpl
