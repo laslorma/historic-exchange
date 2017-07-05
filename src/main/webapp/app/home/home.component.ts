@@ -38,11 +38,13 @@ export class HomeComponent implements OnInit {
         this.registerAuthenticationSuccess();
         this.isSearching = false;
         this.exchangeRate = new ExchangeRate();
+        this.exchangeRate.conversionvalue = 1;
     }
 
     private onSearchSuccess(result: ExchangeRate) {
         // this.eventManager.broadcast({ name: 'exchangeRateListModification', content: 'OK'});
         this.isSearching = false;
+        this.exchangeRate = result;
     }
 
  private onError(error) {

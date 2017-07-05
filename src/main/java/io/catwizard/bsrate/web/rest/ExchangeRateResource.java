@@ -21,7 +21,11 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -128,14 +132,16 @@ public class ExchangeRateResource {
 
     // Por Ernesto
 
-    @GetMapping("/exchange-rates/search/date")
-        @Timed
-        public ResponseEntity<ExchangeRate> searchByDate(@Valid @RequestBody ExchangeRate exchangeRate) throws URISyntaxException {
-            log.debug("REST request to search ExchangeRate By Date : {}", exchangeRate.getDate());
+
+    @GetMapping("/exchange-rates/search/date/{date}")
+    @Timed
+    public ResponseEntity<ExchangeRate> getExchangeRateByDate(@PathVariable String date) {
+        log.debug("REST request to search ExchangeRate By Date : {}", date);
 
 
-            ExchangeRate exchangeRateResult = exchangeRateRepository.findByDate(exchangeRate.getDate());
-
+        LocalDate searchableDate = LocalDate.parse(date);
+        ExchangeRate exchangeRateResult = exchangeRateRepository.findByDate(searchableDate);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(exchangeRateResult));
-        }
+
+    }
 }

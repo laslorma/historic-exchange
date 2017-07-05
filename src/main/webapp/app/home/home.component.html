@@ -13,6 +13,11 @@
 
             <!-- Date Picker-->
             <div *ngIf="isSearching">Searching.. </div>
+            <div *ngIf="exchangeRate.id"> 
+                <div> Fecha {{exchangeRate.date}} </div>
+                <br>
+                 <div>  Cambio <span class="badge badge-primary">{{exchangeRate.conversionvalue}}</span> BsF</div><br>
+            </div>
             <form name="editForm" role="form" novalidate (ngSubmit)="searchByDate()" #editForm="ngForm">
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="bsrateApp.exchangeRate.date" for="field_date">Date</label>
