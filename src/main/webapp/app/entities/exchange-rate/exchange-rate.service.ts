@@ -13,6 +13,15 @@ export class ExchangeRateService {
 
     constructor(private http: Http, private dateUtils: JhiDateUtils) { }
 
+    searchByDate(exchangeRate: ExchangeRate): Observable<ExchangeRate> {
+        const copy = this.convert(exchangeRate);
+        return this.http.get(this.resourceUrl + '/search/date', copy).map((res: Response) => {
+            const jsonResponse = res.json();
+            this.convertItemFromServer(jsonResponse);
+            return jsonResponse;
+        });
+    }
+
     create(exchangeRate: ExchangeRate): Observable<ExchangeRate> {
         const copy = this.convert(exchangeRate);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {

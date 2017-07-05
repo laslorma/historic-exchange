@@ -8,12 +8,35 @@
 
         <div [ngSwitch]="isAuthenticated()">
             <div class="alert alert-success" *ngSwitchCase="true">
-                <span *ngIf="account" jhiTranslate="home.logged.message"
-                    translateValues="{username: '{{account.login}}'}"> You are logged in as user "{{account.login}}". </span>
+                <span *ngIf="account" jhiTranslate="home.logged.message" translateValues="{username: '{{account.login}}'}"> You are logged in as user "{{account.login}}". </span>
             </div>
+
+            <!-- Date Picker-->
+            <div *ngIf="isSearching">Searching.. </div>
+            <form name="editForm" role="form" novalidate (ngSubmit)="searchByDate()" #editForm="ngForm">
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="bsrateApp.exchangeRate.date" for="field_date">Date</label>
+                    <div class="input-group">
+                        <input id="field_date" type="text" class="form-control" name="date" ngbDatepicker #dateDp="ngbDatepicker" [(ngModel)]="exchangeRate.date"
+                            required/>
+                        <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" (click)="dateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.date?.dirty && editForm.controls.date?.invalid)">
+                        <small class="form-text text-danger" [hidden]="!editForm.controls.date?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                    </div>
+                </div>
+
+                <button type="submit" [disabled]="editForm.form.invalid || isSearching" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.search">Buscar</span>
+        </button>
+
 
         </div>
 
-      
     </div>
+</div>
 </div>
