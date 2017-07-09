@@ -4,20 +4,38 @@
     </div>-->
     <div class="col-md-9">
         <h1 class="display-4" jhiTranslate="home.title">Bienvenido a la maquina del tiempo</h1>
-        <p class="lead" jhiTranslate="home.subtitle">Un lugar para consultar la historia y el valor del Bs y Bsf</p>
+        <p class="lead" jhiTranslate="home.subtitle">Un lugar para consultar la historia y el valor del Bs y Bsf, sin tomar en cuenta los dolares preferenciales</p>
 
         <div [ngSwitch]="isAuthenticated()">
             <div class="alert alert-success" *ngSwitchCase="true">
                 <span *ngIf="account" jhiTranslate="home.logged.message" translateValues="{username: '{{account.login}}'}"> You are logged in as user "{{account.login}}". </span>
             </div>
 
+            <!-- Table -->
+
+            <table *ngIf="exchangeRate.id" class="table">
+                <thead>
+                    <tr>
+                        <th>{{exchangeRate.date | date:'shortDate' }}</th>
+                        <th>Dollar $</th>
+                        <th>Bolivar Fuerte</th>
+                        <th>Bolivar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Tasa</th>
+                        <td>1</td>
+                        <td>{{exchangeRate.conversionvalue | number}}</td>
+                        <td>{{exchangeRate.conversionvalue*1000 | number}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+
             <!-- Date Picker-->
             <div *ngIf="isSearching">Searching.. </div>
-            <div *ngIf="exchangeRate.id"> 
-                <div> Fecha {{exchangeRate.date}} </div>
-                <br>
-                 <div>  Cambio <span class="badge badge-primary">{{exchangeRate.conversionvalue}}</span> BsF</div><br>
-            </div>
+            
             <form name="editForm" role="form" novalidate (ngSubmit)="searchByDate()" #editForm="ngForm">
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="bsrateApp.exchangeRate.date" for="field_date">Date</label>
@@ -41,6 +59,14 @@
 
 
         </div>
+
+        <br>
+        <br>
+        <p>
+            El 6 de marzo de 2007 el Banco Central de Venezuela y el Poder Ejecutivo de la República aprobaron una reconversión monetaria que entró en vigencia el 1 de enero de 2008 con la publicación en la gaceta oficial N° 38.638 por iniciativa del presidente Hugo Chávez tras alcanzar altos niveles de devaluación que marcó el tipo de cambio hasta Bs. 4254,11 por dólar estadounidense. 
+
+        </p>
+
 
     </div>
 </div>
