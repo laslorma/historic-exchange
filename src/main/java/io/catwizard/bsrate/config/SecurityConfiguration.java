@@ -78,6 +78,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/content/**")
             .antMatchers("/swagger-ui/index.html")
             .antMatchers("/test/**")
+            .antMatchers(HttpMethod.GET,"/api/exchange-rates/search/**") // Por Ernesto para permitir request de anonymous desde el home
             .antMatchers("/h2-console/**");
     }
 
