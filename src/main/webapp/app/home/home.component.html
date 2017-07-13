@@ -60,14 +60,13 @@
             <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.search">Buscar</span>
         </button>
                 <br>
-        
-        <br>
-        <p *ngIf="latestExchangeRate?.date"> Ultima fecha disponible en el sistema: {{latestExchangeRate.date | date:'shortDate'}}, Tasa: {{latestExchangeRate.conversionvalue | number}} BsF </p>
-        <p *ngIf="firstExchangeRate?.date"> Primera fecha disponible en el sistema: {{firstExchangeRate.date | date:'shortDate'}}, Tasa: {{firstExchangeRate.conversionvalue | number}} BsF </p>
-        <br>
-  
 
+                <br>
+                <p *ngIf="latestExchangeRate?.date"> Ultima fecha disponible en el sistema: {{latestExchangeRate.date | date:'shortDate'}}, Tasa: {{latestExchangeRate.conversionvalue
+                    | number}} BsF </p>
+                <p *ngIf="firstExchangeRate?.date"> Primera fecha disponible en el sistema: {{firstExchangeRate.date | date:'shortDate'}}, Tasa: {{firstExchangeRate.conversionvalue
+                    | number}} BsF </p>
+                <br>
 
+        </div>
     </div>
-</div>
-</div>
