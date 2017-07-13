@@ -39,7 +39,23 @@ export class ExchangeRateService {
         });
     }
 
-     searchByDate(exchangeRate: ExchangeRate): Observable<ExchangeRate> {
+    searchFirst(): Observable<ExchangeRate> {
+        return this.http.get(`${this.resourceUrl}/search/first`).map((res: Response) => {
+            const jsonResponse = res.json();
+            this.convertItemFromServer(jsonResponse);
+            return jsonResponse;
+        });
+    }
+
+    searchLatest(): Observable<ExchangeRate> {
+        return this.http.get(`${this.resourceUrl}/search/latest`).map((res: Response) => {
+            const jsonResponse = res.json();
+            this.convertItemFromServer(jsonResponse);
+            return jsonResponse;
+        });
+    }
+
+    searchByDate(exchangeRate: ExchangeRate): Observable<ExchangeRate> {
         const copy = this.convert(exchangeRate);
         const date: String = copy.date;
         return this.http.get(`${this.resourceUrl}/search/date/${date}`).map((res: Response) => {

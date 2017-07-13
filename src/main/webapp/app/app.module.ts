@@ -12,6 +12,7 @@ import { BsrateEntityModule } from './entities/entity.module';
 
 import { customHttpProvider } from './blocks/interceptor/http.provider';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
+import { LOCALE_ID } from '@angular/core';
 
 import {
     JhiMainComponent,
@@ -47,7 +48,8 @@ import {
         ProfileService,
         customHttpProvider(),
         PaginationConfig,
-        UserRouteAccessService
+        UserRouteAccessService,
+         { provide: LOCALE_ID, useValue: 'es-VE' },
     ],
     bootstrap: [ JhiMainComponent ]
 })

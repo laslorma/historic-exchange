@@ -310,20 +310,56 @@ public class ExchangeRateResourceIntTest {
     }
 
     @Test
-       @Transactional
-       public void searchByDate() throws Exception {
-           // Initialize the database
-           exchangeRateRepository.saveAndFlush(exchangeRate);
+    @Transactional
+    public void searchByDate() throws Exception {
+        // Initialize the database
+        exchangeRateRepository.saveAndFlush(exchangeRate);
 
-           // Get the exchangeRate
-           restExchangeRateMockMvc.perform(get("/api/exchange-rates/search/date/{date}", exchangeRate.getDate()))
-               .andExpect(status().isOk())
-               .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-               .andExpect(jsonPath("$.id").value(exchangeRate.getId().intValue()))
-               .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
-               .andExpect(jsonPath("$.fromcurrency").value(DEFAULT_FROMCURRENCY.toString()))
-               .andExpect(jsonPath("$.tocurrency").value(DEFAULT_TOCURRENCY.toString()))
-               .andExpect(jsonPath("$.conversionvalue").value(DEFAULT_CONVERSIONVALUE.intValue()))
-               .andExpect(jsonPath("$.sistema").value(DEFAULT_SISTEMA.toString()));
+        // Get the exchangeRate
+        restExchangeRateMockMvc.perform(get("/api/exchange-rates/search/date/{date}", exchangeRate.getDate()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.id").value(exchangeRate.getId().intValue()))
+            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
+            .andExpect(jsonPath("$.fromcurrency").value(DEFAULT_FROMCURRENCY.toString()))
+            .andExpect(jsonPath("$.tocurrency").value(DEFAULT_TOCURRENCY.toString()))
+            .andExpect(jsonPath("$.conversionvalue").value(DEFAULT_CONVERSIONVALUE.intValue()))
+            .andExpect(jsonPath("$.sistema").value(DEFAULT_SISTEMA.toString()));
+    }
+
+    @Test
+    @Transactional
+    public void getExchangeLatest() throws Exception {
+        // Initialize the database
+        exchangeRateRepository.saveAndFlush(exchangeRate);
+
+        // Get the exchangeRate
+        restExchangeRateMockMvc.perform(get("/api/exchange-rates/search/latest"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.id").value(exchangeRate.getId().intValue()))
+            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
+            .andExpect(jsonPath("$.fromcurrency").value(DEFAULT_FROMCURRENCY.toString()))
+            .andExpect(jsonPath("$.tocurrency").value(DEFAULT_TOCURRENCY.toString()))
+            .andExpect(jsonPath("$.conversionvalue").value(DEFAULT_CONVERSIONVALUE.intValue()))
+            .andExpect(jsonPath("$.sistema").value(DEFAULT_SISTEMA.toString()));
+    }
+
+    @Test
+    @Transactional
+    public void getExchangeFirst() throws Exception {
+        // Initialize the database
+        exchangeRateRepository.saveAndFlush(exchangeRate);
+
+        // Get the exchangeRate
+        restExchangeRateMockMvc.perform(get("/api/exchange-rates/search/first"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.id").value(exchangeRate.getId().intValue()))
+            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
+            .andExpect(jsonPath("$.fromcurrency").value(DEFAULT_FROMCURRENCY.toString()))
+            .andExpect(jsonPath("$.tocurrency").value(DEFAULT_TOCURRENCY.toString()))
+            .andExpect(jsonPath("$.conversionvalue").value(DEFAULT_CONVERSIONVALUE.intValue()))
+            .andExpect(jsonPath("$.sistema").value(DEFAULT_SISTEMA.toString()));
     }
 }

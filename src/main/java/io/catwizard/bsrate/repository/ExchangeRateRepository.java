@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 /**
@@ -16,4 +17,8 @@ import java.time.LocalDate;
 public interface ExchangeRateRepository extends JpaRepository<ExchangeRate,Long> {
 
     ExchangeRate findByDate(LocalDate date);
+
+    ExchangeRate findTopByOrderByDateDesc();
+
+    ExchangeRate findTopByOrderByDateAsc();
 }
