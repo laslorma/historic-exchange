@@ -12,7 +12,7 @@
             </div>
 
             <!-- Table -->
-
+<!--<div *ngIf="exchangeRate.id"> ER: {{exchangeRateObject()}} </div>-->
             <table *ngIf="exchangeRate.id" class="table">
                 <thead>
                     <tr>
@@ -24,10 +24,10 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <th scope="row">Tasa</th>
-                        <td>1</td>
-                        <td>{{exchangeRate.conversionvalue | number}}</td>
-                        <td>{{exchangeRate.conversionvalue*1000 | number}}</td>
+                        <th scope="row">Cambio</th>
+                        <td> <input [(ngModel)]="dollars"></td>
+                        <td>{{exchangeRate.conversionvalue * dollars | number}}</td>
+                        <td>{{exchangeRate.conversionvalue * dollars * 1000 | number}}</td>
                     </tr>
 
                 </tbody>

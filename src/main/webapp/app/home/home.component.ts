@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
     modalRef: NgbModalRef;
     exchangeRate: ExchangeRate;
      dateDp: any;
+    dollars: number;
 
     constructor(
         private principal: Principal,
@@ -39,6 +40,7 @@ export class HomeComponent implements OnInit {
         this.isSearching = false;
         this.exchangeRate = new ExchangeRate();
         this.exchangeRate.conversionvalue = 1;
+        this.dollars = 1;
     }
 
     private onSearchSuccess(result: ExchangeRate) {
@@ -87,5 +89,9 @@ private onSearchError(error) {
 
     login() {
         this.modalRef = this.loginModalService.open();
+    }
+
+    exchangeRateObject() {
+        return JSON.stringify(this.exchangeRate);
     }
 }
