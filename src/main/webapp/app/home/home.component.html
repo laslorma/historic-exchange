@@ -12,38 +12,41 @@
             </div>
 
             <!-- Table -->
-<!--<div *ngIf="exchangeRate.id"> ER: {{exchangeRateObject()}} </div>-->
-            <table *ngIf="exchangeRate.id" class="table">
-                <thead>
-                    <tr>
-                        <th>{{exchangeRate.date | date:'shortDate' }}</th>
-                        <th>Dollar $</th>
-                        <th>Bolivar Fuerte</th>
-                        <th>Bolivar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">Cambio</th>
-                        <td> <input [(ngModel)]="dollars"></td>
-                        <td>{{exchangeRate.conversionvalue * dollars | number}}</td>
-                        <td>{{exchangeRate.conversionvalue * dollars * 1000 | number}}</td>
-                    </tr>
+            <!--<div *ngIf="exchangeRate.id"> ER: {{exchangeRateObject()}} </div>-->
+            <div *ngIf="exchangeRate.id">
+                <p class="h6"> Tasa: {{exchangeRate.conversionvalue | number}} </p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Fecha: {{exchangeRate.date | date:'shortDate' }}</th>
+                            <th>Dollar $</th>
+                            <th>Bolivar Fuerte</th>
+                            <th>Bolivar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Cambio</th>
+                            <td> <input [(ngModel)]="dollars"></td>
+                            <td>{{exchangeRate.conversionvalue * dollars | number}}</td>
+                            <td>{{exchangeRate.conversionvalue * dollars * 1000 | number}}</td>
+                        </tr>
 
-                </tbody>
-            </table>
-
+                    </tbody>
+                </table>
+            </div>
             <!-- Date Picker-->
             <div *ngIf="isSearching">Searching.. </div>
-            
+
             <form name="editForm" role="form" novalidate (ngSubmit)="searchByDate()" #editForm="ngForm">
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="bsrateApp.exchangeRate.date" for="field_date">Date</label>
                     <div class="input-group">
                         <input id="field_date" type="text" class="form-control" name="date" ngbDatepicker #dateDp="ngbDatepicker" [(ngModel)]="exchangeRate.date"
-                            required/>
+                            [minDate]="minDate" [maxDate]="maxDate" required/>
                         <span class="input-group-btn">
                     <button type="button" class="btn btn-default" (click)="dateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                    
                 </span>
                     </div>
                     <div [hidden]="!(editForm.controls.date?.dirty && editForm.controls.date?.invalid)">
@@ -56,14 +59,20 @@
                 <button type="submit" [disabled]="editForm.form.invalid || isSearching" class="btn btn-primary">
             <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.search">Buscar</span>
         </button>
+                <br>
+
 
 
         </div>
 
+        <p *ngIf="latestExchangeRate?.date"> Ultima fecha disponible en el sistema: {{latestExchangeRate.date | date:'shortDate'}} </p>
         <br>
         <br>
         <p>
-            El 6 de marzo de 2007 el Banco Central de Venezuela y el Poder Ejecutivo de la República aprobaron una reconversión monetaria que entró en vigencia el 1 de enero de 2008 con la publicación en la gaceta oficial N° 38.638 por iniciativa del presidente Hugo Chávez tras alcanzar altos niveles de devaluación que marcó el tipo de cambio hasta Bs. 4254,11 por dólar estadounidense. 
+            El 6 de marzo de 2007 el Banco Central de Venezuela y el Poder Ejecutivo de la República aprobaron una reconversión monetaria
+            que entró en vigencia el 1 de enero de 2008 con la publicación en la gaceta oficial N° 38.638 por iniciativa
+            del presidente Hugo Chávez tras alcanzar altos niveles de devaluación que marcó el tipo de cambio hasta Bs. 4254,11
+            por dólar estadounidense.
 
         </p>
 

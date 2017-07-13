@@ -20,8 +20,11 @@ export class HomeComponent implements OnInit {
     account: Account;
     modalRef: NgbModalRef;
     exchangeRate: ExchangeRate;
-     dateDp: any;
+    latestExchangeRate: ExchangeRate;
+    dateDp: any;
     dollars: number;
+    minDate = { year: 2010, month: 6, day: 23 };
+    maxDate = { year: 2017, month: 6, day: 30 };
 
     constructor(
         private principal: Principal,
@@ -41,19 +44,42 @@ export class HomeComponent implements OnInit {
         this.exchangeRate = new ExchangeRate();
         this.exchangeRate.conversionvalue = 1;
         this.dollars = 1;
+        this.searchLatest();
+    }
+
+    private convertAndAssignToMaxDate(result: ExchangeRate) {
+
+        // const dateArray: string[] = result.date.split('-');
+        // this.maxDate.year = Number(dateArray[0]);
+        // this.maxDate.month = Number(dateArray[1]);
+        // this.maxDate.day = Number(dateArray[2]);
+        this.maxDate.year = result.date.getFullYear();
+        this.maxDate.month = result.date.getMonth() + 1;
+        this.maxDate.day = result.date.getDate();
+
+    }
+
+    private onSearchLatestSuccess(result: ExchangeRate) {
+        // para implementar automaticamente la fecha de fin
+        // 0:"2017"
+        // 1:"06"
+        // 2:"30"
+        this.convertAndAssignToMaxDate(result);
+        this.latestExchangeRate = result;
+        this.isSearching = false;
     }
 
     private onSearchSuccess(result: ExchangeRate) {
-        // this.eventManager.broadcast({ name: 'exchangeRateListModification', content: 'OK'});
         this.isSearching = false;
+        this.dollars = 1;
         this.exchangeRate = result;
     }
 
- private onError(error) {
+    private onError(error) {
         this.alertService.error(error.message, null, null);
     }
 
-private onSearchError(error) {
+    private onSearchError(error) {
         try {
             error.json();
         } catch (exception) {
@@ -62,6 +88,12 @@ private onSearchError(error) {
         this.isSearching = false;
         this.onError(error);
     }
+
+    private subscribeToLatestResponse(result: Observable<ExchangeRate>) {
+        result.subscribe((res: ExchangeRate) =>
+            this.onSearchLatestSuccess(res), (res: Response) => this.onSearchError(res));
+    }
+
     private subscribeToSearchResponse(result: Observable<ExchangeRate>) {
         result.subscribe((res: ExchangeRate) =>
             this.onSearchSuccess(res), (res: Response) => this.onSearchError(res));
@@ -71,7 +103,16 @@ private onSearchError(error) {
         this.isSearching = true;
         console.log('Searching ' + console.log(JSON.stringify(this.exchangeRate)));
         this.subscribeToSearchResponse(
-                this.exchangeRateService.searchByDate(this.exchangeRate));
+            this.exchangeRateService.searchByDate(this.exchangeRate));
+
+    }
+
+    // Todavia no se usa, pero es para conseguir la ultima fecha cargada
+    searchLatest() {
+        this.isSearching = true;
+        console.log('Searching Latest');
+        this.subscribeToLatestResponse(
+            this.exchangeRateService.searchLatest());
 
     }
 

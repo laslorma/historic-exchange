@@ -144,4 +144,27 @@ public class ExchangeRateResource {
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(exchangeRateResult));
 
     }
+
+    @GetMapping("/exchange-rates/search/latest")
+    @Timed
+    public ResponseEntity<ExchangeRate> getExchangeLatest() {
+        log.debug("REST request to search latest ExchangeRate record ");
+
+        ExchangeRate exchangeRateResult = exchangeRateRepository.findTopByOrderByDateDesc();
+
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(exchangeRateResult));
+
+    }
+
+    @GetMapping("/exchange-rates/search/first")
+        @Timed
+        public ResponseEntity<ExchangeRate> getExchangeFirst() {
+            log.debug("REST request to search first ExchangeRate record ");
+
+            ExchangeRate exchangeRateResult = exchangeRateRepository.findFirstByOrderByDateDesc();
+
+            return ResponseUtil.wrapOrNotFound(Optional.ofNullable(exchangeRateResult));
+
+        }
+
 }
