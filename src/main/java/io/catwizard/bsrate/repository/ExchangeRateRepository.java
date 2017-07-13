@@ -20,5 +20,5 @@ public interface ExchangeRateRepository extends JpaRepository<ExchangeRate,Long>
 
     ExchangeRate findTopByOrderByDateDesc();
 
-    ExchangeRate findFirstByOrderByDateDesc();
+    ExchangeRate findTopByOrderByDateAsc();
 }

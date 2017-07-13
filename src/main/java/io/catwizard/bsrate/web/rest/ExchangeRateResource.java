@@ -161,9 +161,9 @@ public class ExchangeRateResource {
         public ResponseEntity<ExchangeRate> getExchangeFirst() {
             log.debug("REST request to search first ExchangeRate record ");
 
-            ExchangeRate exchangeRateResult = exchangeRateRepository.findFirstByOrderByDateDesc();
+            ExchangeRate exchangeRateResult = exchangeRateRepository.findTopByOrderByDateAsc();
 
-            return ResponseUtil.wrapOrNotFound(Optional.ofNullable(exchangeRateResult));
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(exchangeRateResult));
 
         }
 

@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
     modalRef: NgbModalRef;
     exchangeRate: ExchangeRate;
     latestExchangeRate: ExchangeRate;
+    firstExchangeRate: ExchangeRate;
     dateDp: any;
     dollars: number;
     minDate = { year: 2010, month: 6, day: 23 };
@@ -42,9 +43,10 @@ export class HomeComponent implements OnInit {
         this.registerAuthenticationSuccess();
         this.isSearching = false;
         this.exchangeRate = new ExchangeRate();
-        this.exchangeRate.conversionvalue = 1;
         this.dollars = 1;
         this.searchLatest();
+        this.searchFirst();
+
     }
 
     private convertAndAssignToMaxDate(result: ExchangeRate) {
@@ -59,11 +61,12 @@ export class HomeComponent implements OnInit {
 
     }
 
+    private onSearchFirstSuccess(result: ExchangeRate) {
+        this.firstExchangeRate = result;
+        this.isSearching = false;
+    }
+
     private onSearchLatestSuccess(result: ExchangeRate) {
-        // para implementar automaticamente la fecha de fin
-        // 0:"2017"
-        // 1:"06"
-        // 2:"30"
         this.convertAndAssignToMaxDate(result);
         this.latestExchangeRate = result;
         this.isSearching = false;
@@ -72,6 +75,7 @@ export class HomeComponent implements OnInit {
     private onSearchSuccess(result: ExchangeRate) {
         this.isSearching = false;
         this.dollars = 1;
+        this.exchangeRate.conversionvalue = 1;
         this.exchangeRate = result;
     }
 
@@ -87,6 +91,11 @@ export class HomeComponent implements OnInit {
         }
         this.isSearching = false;
         this.onError(error);
+    }
+
+    private subscribeToFirstResponse(result: Observable<ExchangeRate>) {
+        result.subscribe((res: ExchangeRate) =>
+            this.onSearchFirstSuccess(res), (res: Response) => this.onSearchError(res));
     }
 
     private subscribeToLatestResponse(result: Observable<ExchangeRate>) {
@@ -107,7 +116,14 @@ export class HomeComponent implements OnInit {
 
     }
 
-    // Todavia no se usa, pero es para conseguir la ultima fecha cargada
+    searchFirst() {
+        this.isSearching = true;
+        console.log('Searching First');
+        this.subscribeToFirstResponse(
+            this.exchangeRateService.searchFirst());
+
+    }
+
     searchLatest() {
         this.isSearching = true;
         console.log('Searching Latest');

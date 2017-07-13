@@ -3,7 +3,7 @@
         <span class="hipster img-fluid img-rounded"></span>
     </div>-->
     <div class="col-md-9">
-        <h1 class="display-4" jhiTranslate="home.title">Bienvenido a la maquina del tiempo</h1>
+        <h1 class="display-4" jhiTranslate="home.title">Maquina del tiempo</h1>
         <p class="lead" jhiTranslate="home.subtitle">Un lugar para consultar la historia y el valor del Bs y Bsf, sin tomar en cuenta los dolares preferenciales</p>
 
         <div [ngSwitch]="isAuthenticated()">
@@ -60,21 +60,12 @@
             <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.search">Buscar</span>
         </button>
                 <br>
-
-
-
         </div>
-
-        <p *ngIf="latestExchangeRate?.date"> Ultima fecha disponible en el sistema: {{latestExchangeRate.date | date:'shortDate'}} </p>
         <br>
+        <p *ngIf="latestExchangeRate?.date"> Ultima fecha disponible en el sistema: {{latestExchangeRate.date | date:'shortDate'}}, Tasa: {{latestExchangeRate.conversionvalue | number}} BsF </p>
+        <p *ngIf="firstExchangeRate?.date"> Primera fecha disponible en el sistema: {{firstExchangeRate.date | date:'shortDate'}}, Tasa: {{firstExchangeRate.conversionvalue | number}} BsF </p>
         <br>
-        <p>
-            El 6 de marzo de 2007 el Banco Central de Venezuela y el Poder Ejecutivo de la República aprobaron una reconversión monetaria
-            que entró en vigencia el 1 de enero de 2008 con la publicación en la gaceta oficial N° 38.638 por iniciativa
-            del presidente Hugo Chávez tras alcanzar altos niveles de devaluación que marcó el tipo de cambio hasta Bs. 4254,11
-            por dólar estadounidense.
-
-        </p>
+  
 
 
     </div>
