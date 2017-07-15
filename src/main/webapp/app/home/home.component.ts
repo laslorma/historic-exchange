@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
     exchangeRate: ExchangeRate;
     latestExchangeRate: ExchangeRate;
     firstExchangeRate: ExchangeRate;
+    searchExchangeRate: ExchangeRate;
     dateDp: any;
     dollars: number;
     minDate = { year: 2010, month: 6, day: 23 };
@@ -43,6 +44,7 @@ export class HomeComponent implements OnInit {
         this.registerAuthenticationSuccess();
         this.isSearching = false;
         this.exchangeRate = new ExchangeRate();
+        this.searchExchangeRate = new ExchangeRate();
         this.dollars = 1;
         this.searchLatest();
         this.searchFirst();
@@ -110,9 +112,9 @@ export class HomeComponent implements OnInit {
 
     searchByDate() {
         this.isSearching = true;
-        console.log('Searching ' + console.log(JSON.stringify(this.exchangeRate)));
+        console.log('Searching: ' + JSON.stringify(this.searchExchangeRate));
         this.subscribeToSearchResponse(
-            this.exchangeRateService.searchByDate(this.exchangeRate));
+            this.exchangeRateService.searchByDate(this.searchExchangeRate));
 
     }
 

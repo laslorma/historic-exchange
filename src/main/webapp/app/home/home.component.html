@@ -14,20 +14,22 @@
             <!-- Table -->
             <!--<div *ngIf="exchangeRate.id"> ER: {{exchangeRateObject()}} </div>-->
             <div *ngIf="exchangeRate.id">
-                <p class="h6"> Tasa: {{exchangeRate.conversionvalue | number}} </p>
-                <table class="table">
+                
+                <table class="table table-bordered table-sm table-responsive">
                     <thead>
                         <tr>
-                            <th>Fecha: {{exchangeRate.date | date:'shortDate' }}</th>
-                            <th>Dollar $</th>
-                            <th>Bolivar Fuerte</th>
-                            <th>Bolivar</th>
+                            <th >Tasa: {{exchangeRate.conversionvalue | number}}</th>
+                            <th >Dollar $</th>
+                            <th >Bolivar Fuerte</th>
+                            <th >Bolivar</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row">Cambio</th>
-                            <td> <input [(ngModel)]="dollars"></td>
+                            <th scope="row">Calculadora</th>
+                            <td> 
+                               <small> <input [(ngModel)]="dollars" type="number"></small>
+                            </td>
                             <td>{{exchangeRate.conversionvalue * dollars | number}}</td>
                             <td>{{exchangeRate.conversionvalue * dollars * 1000 | number}}</td>
                         </tr>
@@ -42,7 +44,7 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="bsrateApp.exchangeRate.date" for="field_date">Date</label>
                     <div class="input-group">
-                        <input id="field_date" type="text" class="form-control" name="date" ngbDatepicker #dateDp="ngbDatepicker" [(ngModel)]="exchangeRate.date"
+                        <input id="field_date" type="text" class="form-control" name="date" ngbDatepicker #dateDp="ngbDatepicker" [(ngModel)]="searchExchangeRate.date"
                             [minDate]="minDate" [maxDate]="maxDate" required/>
                         <span class="input-group-btn">
                     <button type="button" class="btn btn-default" (click)="dateDp.toggle()"><i class="fa fa-calendar"></i></button>
