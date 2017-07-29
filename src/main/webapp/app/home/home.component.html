@@ -3,7 +3,7 @@
         <span class="hipster img-fluid img-rounded"></span>
     </div>-->
     <div class="col-md-9">
-        <h1 class="display-4" jhiTranslate="home.title">Maquina del tiempo</h1>
+        <h1 class="display-4" jhiTranslate="home.title">Referencias del Bolivar</h1>
         <p class="lead" jhiTranslate="home.subtitle">Un lugar para consultar la historia y el valor del Bs y Bsf, sin tomar en cuenta los dolares preferenciales</p>
 
         <div [ngSwitch]="isAuthenticated()">
@@ -13,24 +13,31 @@
 
             <!-- Table -->
             <!--<div *ngIf="exchangeRate.id"> ER: {{exchangeRateObject()}} </div>-->
+            <h4>Tasa: {{exchangeRate.conversionvalue | number}}</h4>
+
             <div *ngIf="exchangeRate.id">
                 
                 <table class="table table-bordered table-sm table-responsive">
                     <thead>
                         <tr>
-                            <th >Tasa: {{exchangeRate.conversionvalue | number}}</th>
                             <th >Dollar $</th>
-                            <th >Bolivar Fuerte</th>
-                            <th >Bolivar</th>
+                            <th >BsF</th>
+                            <th >Bs</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row">Calculadora</th>
                             <td> 
                                <small> <input [(ngModel)]="dollars" type="number"></small>
                             </td>
                             <td>{{exchangeRate.conversionvalue * dollars | number}}</td>
+                            <td>{{exchangeRate.conversionvalue * dollars * 1000 | number}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{bolivaresFuerte / exchangeRate.conversionvalue  | number}}</td>
+                            <td> 
+                               <small> <input [(ngModel)]="bolivaresFuerte" type="number"></small>
+                            </td>
                             <td>{{exchangeRate.conversionvalue * dollars * 1000 | number}}</td>
                         </tr>
 

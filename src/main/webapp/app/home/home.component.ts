@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
     searchExchangeRate: ExchangeRate;
     dateDp: any;
     dollars: number;
+    bolivaresFuerte: number;
     minDate = { year: 2010, month: 6, day: 23 };
     maxDate = { year: 2017, month: 6, day: 30 };
 
@@ -46,6 +47,7 @@ export class HomeComponent implements OnInit {
         this.exchangeRate = new ExchangeRate();
         this.searchExchangeRate = new ExchangeRate();
         this.dollars = 1;
+        this.bolivaresFuerte = 1;
         this.searchLatest();
         this.searchFirst();
 
@@ -79,6 +81,7 @@ export class HomeComponent implements OnInit {
         this.dollars = 1;
         this.exchangeRate.conversionvalue = 1;
         this.exchangeRate = result;
+        this.bolivaresFuerte = this.exchangeRate.conversionvalue * this.dollars;
     }
 
     private onError(error) {
