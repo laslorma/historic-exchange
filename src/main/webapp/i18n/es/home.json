@@ -1,6 +1,6 @@
 {
     "home": {
-        "title": "Maquina del tiempo",
+        "title": "Historico",
         "subtitle": "Un lugar para consultar la historia y el valor del Bs y Bsf",
         "logged": {
             "message": "Está conectado como \"{{username}}\"."
