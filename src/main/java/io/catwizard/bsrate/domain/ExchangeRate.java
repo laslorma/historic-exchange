@@ -44,6 +44,7 @@ public class ExchangeRate implements Serializable {
     @Column(name = "sistema")
     private Sistema sistema;
 
+    // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -116,6 +117,7 @@ public class ExchangeRate implements Serializable {
     public void setSistema(Sistema sistema) {
         this.sistema = sistema;
     }
+    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {

@@ -17,7 +17,6 @@ import { ExchangeRateService } from './exchange-rate.service';
 export class ExchangeRateDialogComponent implements OnInit {
 
     exchangeRate: ExchangeRate;
-    authorities: any[];
     isSaving: boolean;
     dateDp: any;
 
@@ -31,7 +30,6 @@ export class ExchangeRateDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     }
 
     clear() {
@@ -42,24 +40,19 @@ export class ExchangeRateDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.exchangeRate.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.exchangeRateService.update(this.exchangeRate), false);
+                this.exchangeRateService.update(this.exchangeRate));
         } else {
             this.subscribeToSaveResponse(
-                this.exchangeRateService.create(this.exchangeRate), true);
+                this.exchangeRateService.create(this.exchangeRate));
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<ExchangeRate>, isCreated: boolean) {
+    private subscribeToSaveResponse(result: Observable<ExchangeRate>) {
         result.subscribe((res: ExchangeRate) =>
-            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
     }
 
-    private onSaveSuccess(result: ExchangeRate, isCreated: boolean) {
-        this.alertService.success(
-            isCreated ? 'bsrateApp.exchangeRate.created'
-            : 'bsrateApp.exchangeRate.updated',
-            { param : result.id }, null);
-
+    private onSaveSuccess(result: ExchangeRate) {
         this.eventManager.broadcast({ name: 'exchangeRateListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
@@ -86,7 +79,6 @@ export class ExchangeRateDialogComponent implements OnInit {
 })
 export class ExchangeRatePopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
@@ -97,11 +89,11 @@ export class ExchangeRatePopupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             if ( params['id'] ) {
-                this.modalRef = this.exchangeRatePopupService
-                    .open(ExchangeRateDialogComponent, params['id']);
+                this.exchangeRatePopupService
+                    .open(ExchangeRateDialogComponent as Component, params['id']);
             } else {
-                this.modalRef = this.exchangeRatePopupService
-                    .open(ExchangeRateDialogComponent);
+                this.exchangeRatePopupService
+                    .open(ExchangeRateDialogComponent as Component);
             }
         });
     }

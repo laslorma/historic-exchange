@@ -40,7 +40,6 @@ public class ExchangeRateResource {
     private static final String ENTITY_NAME = "exchangeRate";
 
     private final ExchangeRateRepository exchangeRateRepository;
-
     public ExchangeRateResource(ExchangeRateRepository exchangeRateRepository) {
         this.exchangeRateRepository = exchangeRateRepository;
     }

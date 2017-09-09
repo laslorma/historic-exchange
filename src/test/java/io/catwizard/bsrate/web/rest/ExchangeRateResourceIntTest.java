@@ -78,7 +78,7 @@ public class ExchangeRateResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        ExchangeRateResource exchangeRateResource = new ExchangeRateResource(exchangeRateRepository);
+        final ExchangeRateResource exchangeRateResource = new ExchangeRateResource(exchangeRateRepository);
         this.restExchangeRateMockMvc = MockMvcBuilders.standaloneSetup(exchangeRateResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
