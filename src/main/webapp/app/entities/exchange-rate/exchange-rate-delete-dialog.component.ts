@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { ExchangeRate } from './exchange-rate.model';
 import { ExchangeRatePopupService } from './exchange-rate-popup.service';
@@ -19,7 +19,6 @@ export class ExchangeRateDeleteDialogComponent {
     constructor(
         private exchangeRateService: ExchangeRateService,
         public activeModal: NgbActiveModal,
-        private alertService: JhiAlertService,
         private eventManager: JhiEventManager
     ) {
     }
@@ -36,7 +35,6 @@ export class ExchangeRateDeleteDialogComponent {
             });
             this.activeModal.dismiss(true);
         });
-        this.alertService.success('bsrateApp.exchangeRate.deleted', { param : id }, null);
     }
 }
 
@@ -46,7 +44,6 @@ export class ExchangeRateDeleteDialogComponent {
 })
 export class ExchangeRateDeletePopupComponent implements OnInit, OnDestroy {
 
-    modalRef: NgbModalRef;
     routeSub: any;
 
     constructor(
@@ -56,8 +53,8 @@ export class ExchangeRateDeletePopupComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            this.modalRef = this.exchangeRatePopupService
-                .open(ExchangeRateDeleteDialogComponent, params['id']);
+            this.exchangeRatePopupService
+                .open(ExchangeRateDeleteDialogComponent as Component, params['id']);
         });
     }
 

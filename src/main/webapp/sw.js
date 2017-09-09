@@ -1,5 +1,5 @@
-var dataCacheName = '"Bsrate-v1';
-var cacheName = '"Bsrate-1';
+var dataCacheName = 'Bsrate-v1';
+var cacheName = 'Bsrate-1';
 var filesToCache = [
     '/',
     '/index.html'
