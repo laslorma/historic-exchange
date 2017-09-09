@@ -13,16 +13,17 @@
 
             <!-- Table -->
             <!--<div *ngIf="exchangeRate.id"> ER: {{exchangeRateObject()}} </div>-->
-            <h4>Tasa: {{exchangeRate.conversionvalue | number}}, Sueldo Minimo {{exchangeRate.sueldomin | number}}</h4>
-
+            
             <div *ngIf="exchangeRate.id">
+                <h4>Tasa: {{exchangeRate.conversionvalue | number}}, Sueldo Minimo (Minimum Monthly Wage) ${{exchangeRate.sueldomin | number}}</h4>
                 
                 <table class="table table-bordered table-sm table-responsive">
                     <thead>
                         <tr>
-                            <th >Dollar $</th>
-                            <th >BsF</th>
-                            <th >Bs</th>
+                            <th>Dollar $</th>
+                            <th>Sueldo Minimo $</th>
+                            <th>BsF</th>
+                            <th>Bs</th>
                         </tr>
                     </thead>
                     <tbody>
