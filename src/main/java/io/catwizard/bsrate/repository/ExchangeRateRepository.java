@@ -14,7 +14,7 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface ExchangeRateRepository extends JpaRepository<ExchangeRate,Long> {
+public interface ExchangeRateRepository extends JpaRepository<ExchangeRate, Long> {
 
     ExchangeRate findByDate(LocalDate date);
 

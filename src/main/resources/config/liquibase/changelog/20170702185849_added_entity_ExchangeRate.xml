@@ -26,19 +26,11 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="fromcurrency" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="tocurrency" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-
             <column name="conversionvalue" type="decimal(10,2)">
                 <constraints nullable="false" />
             </column>
 
-            <column name="sistema" type="varchar(255)">
+            <column name="sueldomin" type="decimal(10,2)">
                 <constraints nullable="true" />
             </column>
 

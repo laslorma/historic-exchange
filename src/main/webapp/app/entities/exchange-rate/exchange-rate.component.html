@@ -18,10 +18,8 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="date"><span jhiTranslate="bsrateApp.exchangeRate.date">Date</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="fromcurrency"><span jhiTranslate="bsrateApp.exchangeRate.fromcurrency">Fromcurrency</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="tocurrency"><span jhiTranslate="bsrateApp.exchangeRate.tocurrency">Tocurrency</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="conversionvalue"><span jhiTranslate="bsrateApp.exchangeRate.conversionvalue">Conversionvalue</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="sistema"><span jhiTranslate="bsrateApp.exchangeRate.sistema">Sistema</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="sueldomin"><span jhiTranslate="bsrateApp.exchangeRate.sueldomin">Sueldomin</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -29,10 +27,8 @@
             <tr *ngFor="let exchangeRate of exchangeRates ;trackBy: trackId">
                 <td><a [routerLink]="['../exchange-rate', exchangeRate.id ]">{{exchangeRate.id}}</a></td>
                 <td>{{exchangeRate.date | date:'mediumDate'}}</td>
-                <td>{{exchangeRate.fromcurrency}}</td>
-                <td>{{exchangeRate.tocurrency}}</td>
                 <td>{{exchangeRate.conversionvalue}}</td>
-                <td jhiTranslate="{{'bsrateApp.Sistema.' + exchangeRate.sistema}}">{{exchangeRate.sistema}}</td>
+                <td>{{exchangeRate.sueldomin}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

@@ -16,10 +16,8 @@
                 "title": "Exchange Rate"
             },
             "date": "Date",
-            "fromcurrency": "Fromcurrency",
-            "tocurrency": "Tocurrency",
             "conversionvalue": "Conversionvalue",
-            "sistema": "Sistema"
+            "sueldomin": "Sueldomin"
         }
     }
 }
