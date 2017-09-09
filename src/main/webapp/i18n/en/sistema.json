@@ -1,0 +1,11 @@
+{
+    "bsrateApp": {
+        "Sistema" : {
+            "null": "",
+            "NEGRO": "NEGRO",
+            "CADIVI": "CADIVI",
+            "CENCOEX": "CENCOEX",
+            "SIMADI": "SIMADI"
+        }
+    }
+}

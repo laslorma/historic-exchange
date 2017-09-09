@@ -1,0 +1,41 @@
+
+<div *ngIf="exchangeRate">
+    <h2><span jhiTranslate="bsrateApp.exchangeRate.detail.title">Exchange Rate</span> {{exchangeRate.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="bsrateApp.exchangeRate.date">Date</span></dt>
+        <dd>
+            <span>{{exchangeRate.date | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="bsrateApp.exchangeRate.fromcurrency">Fromcurrency</span></dt>
+        <dd>
+            <span>{{exchangeRate.fromcurrency}}</span>
+        </dd>
+        <dt><span jhiTranslate="bsrateApp.exchangeRate.tocurrency">Tocurrency</span></dt>
+        <dd>
+            <span>{{exchangeRate.tocurrency}}</span>
+        </dd>
+        <dt><span jhiTranslate="bsrateApp.exchangeRate.conversionvalue">Conversionvalue</span></dt>
+        <dd>
+            <span>{{exchangeRate.conversionvalue}}</span>
+        </dd>
+        <dt><span jhiTranslate="bsrateApp.exchangeRate.sistema">Sistema</span></dt>
+        <dd>
+            <span jhiTranslate="{{'bsrateApp.Sistema.' + exchangeRate.sistema}}">{{exchangeRate.sistema}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'exchange-rate/'+ exchangeRate.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
