@@ -16,8 +16,10 @@
                 "title": "Exchange Rate"
             },
             "date": "Date",
-            "conversionvalue": "Conversionvalue",
-            "sueldomin": "Sueldomin"
+            "conversionvalue": "Exchange Rate Bsf",
+            "sueldomin": "Minimum Wage",
+            "sueldomindoll": "Monthly Minimum Wage $"
+
         }
     }
 }

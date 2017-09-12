@@ -85,6 +85,16 @@ export class ExchangeRateService {
         });
     }
 
+    searchAllFirstDayMonth(): Observable<Array<ExchangeRate>> {
+        return this.http.get(`${this.resourceUrl}/search/all-first-day-month`).map((res: Response) => {
+            const jsonResponse = res.json();
+            for (let i = 0; i < jsonResponse.length; i++) {
+                this.convertItemFromServer(jsonResponse[i]);
+            }
+            return jsonResponse;
+        });
+    }
+
     searchByDate(exchangeRate: ExchangeRate): Observable<ExchangeRate> {
         const copy = this.convert(exchangeRate);
         const date: String = copy.date;

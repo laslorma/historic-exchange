@@ -21,4 +21,7 @@ public interface ExchangeRateRepository extends JpaRepository<ExchangeRate, Long
     ExchangeRate findTopByOrderByDateDesc();
 
     ExchangeRate findTopByOrderByDateAsc();
+
+    @Query("SELECT e FROM ExchangeRate e WHERE DAY(e.date) = 1 ORDER BY e.id DESC")
+    List<ExchangeRate> searchAllFirstDayMonth();
 }

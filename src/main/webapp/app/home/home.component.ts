@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
     latestExchangeRate: ExchangeRate;
     firstExchangeRate: ExchangeRate;
     searchExchangeRate: ExchangeRate;
+    allExchangeRateFirstMonth: Array<ExchangeRate>;
     dateDp: any;
     dollars: number;
     bolivaresFuerte: number;
@@ -50,6 +51,7 @@ export class HomeComponent implements OnInit {
         this.bolivaresFuerte = 1;
         this.searchLatest();
         this.searchFirst();
+        this.searchAllFirstDayMonth();
 
     }
 
@@ -63,6 +65,11 @@ export class HomeComponent implements OnInit {
         this.maxDate.month = result.date.getMonth() + 1;
         this.maxDate.day = result.date.getDate();
 
+    }
+
+    private onSearchAllFirstDayMonthSuccess(result: Array<ExchangeRate>) {
+        this.allExchangeRateFirstMonth = result;
+        this.isSearching = false;
     }
 
     private onSearchFirstSuccess(result: ExchangeRate) {
@@ -113,6 +120,11 @@ export class HomeComponent implements OnInit {
             this.onSearchSuccess(res), (res: Response) => this.onSearchError(res));
     }
 
+    private subscribeToSearchAllFirstDayMonthResponse(result: Observable<Array<ExchangeRate>>) {
+        result.subscribe((res: Array<ExchangeRate>) =>
+            this.onSearchAllFirstDayMonthSuccess(res), (res: Response) => this.onSearchError(res));
+    }
+
     searchByDate() {
         this.isSearching = true;
         console.log('Searching: ' + JSON.stringify(this.searchExchangeRate));
@@ -136,6 +148,14 @@ export class HomeComponent implements OnInit {
             this.exchangeRateService.searchLatest());
 
     }
+
+searchAllFirstDayMonth() {
+    this.isSearching = true;
+    console.log('Searching searchAllFirstDayMonth');
+    this.subscribeToSearchAllFirstDayMonthResponse(
+        this.exchangeRateService.searchAllFirstDayMonth());
+
+}
 
     registerAuthenticationSuccess() {
         this.eventManager.subscribe('authenticationSuccess', (message) => {

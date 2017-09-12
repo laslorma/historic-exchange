@@ -289,4 +289,72 @@ public class ExchangeRateResourceIntTest {
         exchangeRate1.setId(null);
         assertThat(exchangeRate1).isNotEqualTo(exchangeRate2);
     }
+
+
+    // Ernesto
+    @Test
+    @Transactional
+    public void searchByDate() throws Exception {
+        // Initialize the database
+        exchangeRateRepository.saveAndFlush(exchangeRate);
+
+        // Get the exchangeRate
+        restExchangeRateMockMvc.perform(get("/api/exchange-rates/search/date/{date}", exchangeRate.getDate()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.id").value(exchangeRate.getId().intValue()))
+             .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
+             .andExpect(jsonPath("$.conversionvalue").value(DEFAULT_CONVERSIONVALUE.intValue()))
+             .andExpect(jsonPath("$.sueldomin").value(DEFAULT_SUELDOMIN.intValue()));
+    }
+
+    @Test
+    @Transactional
+    public void getExchangeLatest() throws Exception {
+        // Initialize the database
+        exchangeRateRepository.saveAndFlush(exchangeRate);
+
+        // Get the exchangeRate
+        restExchangeRateMockMvc.perform(get("/api/exchange-rates/search/latest"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.id").value(exchangeRate.getId().intValue()))
+               .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
+               .andExpect(jsonPath("$.conversionvalue").value(DEFAULT_CONVERSIONVALUE.intValue()))
+               .andExpect(jsonPath("$.sueldomin").value(DEFAULT_SUELDOMIN.intValue()));
+    }
+
+    @Test
+    @Transactional
+    public void getExchangeFirst() throws Exception {
+        // Initialize the database
+        exchangeRateRepository.saveAndFlush(exchangeRate);
+
+        // Get the exchangeRate
+        restExchangeRateMockMvc.perform(get("/api/exchange-rates/search/first"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.id").value(exchangeRate.getId().intValue()))
+               .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
+               .andExpect(jsonPath("$.conversionvalue").value(DEFAULT_CONVERSIONVALUE.intValue()))
+               .andExpect(jsonPath("$.sueldomin").value(DEFAULT_SUELDOMIN.intValue()));
+    }
+
+    @Test
+    @Transactional
+    public void getLast6Months() throws Exception {
+
+         // Initialize the database
+        exchangeRateRepository.saveAndFlush(exchangeRate);
+
+        // Get all the exchangeRateList
+        restExchangeRateMockMvc.perform(get("/api/exchange-rates/search/all-first-day-month"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(exchangeRate.getId().intValue())))
+            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
+            .andExpect(jsonPath("$.[*].conversionvalue").value(hasItem(DEFAULT_CONVERSIONVALUE.intValue())))
+            .andExpect(jsonPath("$.[*].sueldomin").value(hasItem(DEFAULT_SUELDOMIN.intValue())));
+    }
+
 }

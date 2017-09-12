@@ -15,13 +15,14 @@
             <!--<div *ngIf="exchangeRate.id"> ER: {{exchangeRateObject()}} </div>-->
             
             <div *ngIf="exchangeRate.id">
-                <h4>Tasa: {{exchangeRate.conversionvalue | number}}, Sueldo Minimo (Minimum Monthly Wage) ${{exchangeRate.sueldomin | number}}</h4>
+                <b>Tasa: {{exchangeRate.conversionvalue | number}}, 
+                    Sueldo Minimo (Minimum Monthly Wage) ${{exchangeRate.sueldomin / exchangeRate.conversionvalue | number}},
+                    Bsf: {{exchangeRate.sueldomin  | number}}, </b>
                 
                 <table class="table table-bordered table-sm table-responsive">
                     <thead>
                         <tr>
                             <th>Dollar $</th>
-                            <th>Sueldo Minimo $</th>
                             <th>BsF</th>
                             <th>Bs</th>
                         </tr>
@@ -78,6 +79,26 @@
         <p *ngIf="firstExchangeRate?.date"> Primera fecha disponible en el sistema: {{firstExchangeRate.date | date:'shortDate'}}, Tasa: {{firstExchangeRate.conversionvalue
             | number}} BsF </p>
         <br>
+
+        <div class="table-responsive" ></div>
+            <table class="table table-striped">
+                <thead>
+                <th ><span jhiTranslate="bsrateApp.exchangeRate.date">Date</span> <span class="fa fa-sort"></span></th>
+                <th ><span jhiTranslate="bsrateApp.exchangeRate.conversionvalue">Conversionvalue</span> <span class="fa fa-sort"></span></th>
+                <th ><span jhiTranslate="bsrateApp.exchangeRate.sueldomin">BsF Sueldomin</span> <span class="fa fa-sort"></span></th>
+                <th><span jhiTranslate="bsrateApp.exchangeRate.sueldomindoll">Sueldo Minimo Mensual $</span> <span class="fa fa-sort"></span></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let exchangeRate of allExchangeRateFirstMonth">
+                    <td>{{exchangeRate.date | date:'mediumDate'}}</td>
+                    <td>{{exchangeRate.conversionvalue | currency : "BsF"}}</td>
+                    <td>{{exchangeRate.sueldomin | currency : "BsF"}}</td>
+                    <td>{{exchangeRate.sueldomin / exchangeRate.conversionvalue | currency : "USD"}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
     </div>
 </div>

@@ -156,14 +156,23 @@ public class ExchangeRateResource {
     }
 
     @GetMapping("/exchange-rates/search/first")
-        @Timed
-        public ResponseEntity<ExchangeRate> getExchangeFirst() {
-            log.debug("REST request to search first ExchangeRate record ");
+    @Timed
+    public ResponseEntity<ExchangeRate> getExchangeFirst() {
+        log.debug("REST request to search first ExchangeRate record ");
 
-            ExchangeRate exchangeRateResult = exchangeRateRepository.findTopByOrderByDateAsc();
+        ExchangeRate exchangeRateResult = exchangeRateRepository.findTopByOrderByDateAsc();
 
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(exchangeRateResult));
 
+    }
+
+    @GetMapping("/exchange-rates/search/all-first-day-month")
+        @Timed
+        public ResponseEntity<List<ExchangeRate>> searchAllFirstDayMonth() {
+            log.debug("REST request to getSixLatestMonths ExchangeRates");
+        List<ExchangeRate> sixLatestMonths = exchangeRateRepository.searchAllFirstDayMonth();
+
+            return new ResponseEntity<>(sixLatestMonths, HttpStatus.OK);
         }
 
 }
