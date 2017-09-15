@@ -15,9 +15,15 @@
             <!--<div *ngIf="exchangeRate.id"> ER: {{exchangeRateObject()}} </div>-->
             
             <div *ngIf="exchangeRate.id">
-                <b>Tasa: {{exchangeRate.conversionvalue | number}}, 
-                    Sueldo Minimo (Minimum Monthly Wage) ${{exchangeRate.sueldomin / exchangeRate.conversionvalue | number}},
-                    Bsf: {{exchangeRate.sueldomin  | number}}, </b>
+                Fecha: {{exchangeRate.date | date:'mediumDate'}}
+                <br>
+                Tasa: {{exchangeRate.conversionvalue | number}} Bsf por $1, 
+                <br>
+                Sueldo Minimo (Minimum Monthly Wage) ${{exchangeRate.sueldomin / exchangeRate.conversionvalue | number}},
+                <br>
+                Sueldo Minimo en Bsf: {{exchangeRate.sueldomin  | number}}
+                    
+                    
                 
                 <table class="table table-bordered table-sm table-responsive">
                     <thead>
@@ -99,6 +105,11 @@
                 </tbody>
             </table>
         </div>
-
+        
+        <p>El historial del dolar ha sido extraido de los archivos de <p><a href="https://dolartoday.com/">Dolar Today</a>. </p>
+        <br>
+        <p> Cualquier sugerencia por favor enviar a 
+                <a href="mailto:bshistorico@gmail.com" target="_top">bshistorico@gmail.com</a></p>
+       
     </div>
 </div>
