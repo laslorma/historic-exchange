@@ -14,6 +14,7 @@
             "follow": "contacto @java_hipster en Twitter"
         },
         "like": "Si te gusta JHipster, danos una estrella en",
-        "github": "GitHub"
+        "github": "GitHub",
+        "tablenote": "Esta es una tabla donde se puede ver el valor del dolar en BsF por principio de mes, y compararlo con el sueldo minimo en $"
     }
 }

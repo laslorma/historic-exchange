@@ -10,14 +10,6 @@
             ]
         },
         {
-            "fieldName": "fromcurrency",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "tocurrency",
-            "fieldType": "String"
-        },
-        {
             "fieldName": "conversionvalue",
             "fieldType": "BigDecimal",
             "fieldValidateRules": [
@@ -25,9 +17,8 @@
             ]
         },
         {
-            "fieldName": "sistema",
-            "fieldType": "Sistema",
-            "fieldValues": "NEGRO,CADIVI,CENCOEX,SIMADI"
+            "fieldName": "sueldomin",
+            "fieldType": "BigDecimal"
         }
     ],
     "changelogDate": "20170702185849",

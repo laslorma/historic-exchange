@@ -39,32 +39,6 @@ export class ExchangeRateService {
         });
     }
 
-    searchFirst(): Observable<ExchangeRate> {
-        return this.http.get(`${this.resourceUrl}/search/first`).map((res: Response) => {
-            const jsonResponse = res.json();
-            this.convertItemFromServer(jsonResponse);
-            return jsonResponse;
-        });
-    }
-
-    searchLatest(): Observable<ExchangeRate> {
-        return this.http.get(`${this.resourceUrl}/search/latest`).map((res: Response) => {
-            const jsonResponse = res.json();
-            this.convertItemFromServer(jsonResponse);
-            return jsonResponse;
-        });
-    }
-
-    searchByDate(exchangeRate: ExchangeRate): Observable<ExchangeRate> {
-        const copy = this.convert(exchangeRate);
-        const date: String = copy.date;
-        return this.http.get(`${this.resourceUrl}/search/date/${date}`).map((res: Response) => {
-            const jsonResponse = res.json();
-            this.convertItemFromServer(jsonResponse);
-            return jsonResponse;
-        });
-    }
-
     query(req?: any): Observable<ResponseWrapper> {
         const options = createRequestOption(req);
         return this.http.get(this.resourceUrl, options)
@@ -94,4 +68,41 @@ export class ExchangeRateService {
             .convertLocalDateToServer(exchangeRate.date);
         return copy;
     }
+
+    searchFirst(): Observable<ExchangeRate> {
+        return this.http.get(`${this.resourceUrl}/search/first`).map((res: Response) => {
+            const jsonResponse = res.json();
+            this.convertItemFromServer(jsonResponse);
+            return jsonResponse;
+        });
+    }
+
+    searchLatest(): Observable<ExchangeRate> {
+        return this.http.get(`${this.resourceUrl}/search/latest`).map((res: Response) => {
+            const jsonResponse = res.json();
+            this.convertItemFromServer(jsonResponse);
+            return jsonResponse;
+        });
+    }
+
+    searchAllFirstDayMonth(): Observable<Array<ExchangeRate>> {
+        return this.http.get(`${this.resourceUrl}/search/all-first-day-month`).map((res: Response) => {
+            const jsonResponse = res.json();
+            for (let i = 0; i < jsonResponse.length; i++) {
+                this.convertItemFromServer(jsonResponse[i]);
+            }
+            return jsonResponse;
+        });
+    }
+
+    searchByDate(exchangeRate: ExchangeRate): Observable<ExchangeRate> {
+        const copy = this.convert(exchangeRate);
+        const date: String = copy.date;
+        return this.http.get(`${this.resourceUrl}/search/date/${date}`).map((res: Response) => {
+            const jsonResponse = res.json();
+            this.convertItemFromServer(jsonResponse);
+            return jsonResponse;
+        });
+    }
+
 }

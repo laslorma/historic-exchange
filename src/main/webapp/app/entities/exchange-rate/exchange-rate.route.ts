@@ -9,8 +9,6 @@ import { ExchangeRateDetailComponent } from './exchange-rate-detail.component';
 import { ExchangeRatePopupComponent } from './exchange-rate-dialog.component';
 import { ExchangeRateDeletePopupComponent } from './exchange-rate-delete-dialog.component';
 
-import { Principal } from '../../shared';
-
 @Injectable()
 export class ExchangeRateResolvePagingParams implements Resolve<any> {
 

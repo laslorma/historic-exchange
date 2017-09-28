@@ -14,6 +14,8 @@ import { customHttpProvider } from './blocks/interceptor/http.provider';
 import { PaginationConfig } from './blocks/config/uib-pagination.config';
 import { LOCALE_ID } from '@angular/core';
 
+// jhipster-needle-angular-add-module-import JHipster will add new module here
+
 import {
     JhiMainComponent,
     LayoutRoutingModule,
@@ -34,7 +36,8 @@ import {
         BsrateHomeModule,
         BsrateAdminModule,
         BsrateAccountModule,
-        BsrateEntityModule
+        BsrateEntityModule,
+        // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [
         JhiMainComponent,

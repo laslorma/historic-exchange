@@ -10,8 +10,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import io.catwizard.bsrate.domain.enumeration.Sistema;
-
 /**
  * A ExchangeRate.
  */
@@ -30,20 +28,14 @@ public class ExchangeRate implements Serializable {
     @Column(name = "jhi_date", nullable = false)
     private LocalDate date;
 
-    @Column(name = "fromcurrency")
-    private String fromcurrency;
-
-    @Column(name = "tocurrency")
-    private String tocurrency;
-
     @NotNull
     @Column(name = "conversionvalue", precision=10, scale=2, nullable = false)
     private BigDecimal conversionvalue;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "sistema")
-    private Sistema sistema;
+    @Column(name = "sueldomin", precision=10, scale=2)
+    private BigDecimal sueldomin;
 
+    // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -65,32 +57,6 @@ public class ExchangeRate implements Serializable {
         this.date = date;
     }
 
-    public String getFromcurrency() {
-        return fromcurrency;
-    }
-
-    public ExchangeRate fromcurrency(String fromcurrency) {
-        this.fromcurrency = fromcurrency;
-        return this;
-    }
-
-    public void setFromcurrency(String fromcurrency) {
-        this.fromcurrency = fromcurrency;
-    }
-
-    public String getTocurrency() {
-        return tocurrency;
-    }
-
-    public ExchangeRate tocurrency(String tocurrency) {
-        this.tocurrency = tocurrency;
-        return this;
-    }
-
-    public void setTocurrency(String tocurrency) {
-        this.tocurrency = tocurrency;
-    }
-
     public BigDecimal getConversionvalue() {
         return conversionvalue;
     }
@@ -104,18 +70,19 @@ public class ExchangeRate implements Serializable {
         this.conversionvalue = conversionvalue;
     }
 
-    public Sistema getSistema() {
-        return sistema;
+    public BigDecimal getSueldomin() {
+        return sueldomin;
     }
 
-    public ExchangeRate sistema(Sistema sistema) {
-        this.sistema = sistema;
+    public ExchangeRate sueldomin(BigDecimal sueldomin) {
+        this.sueldomin = sueldomin;
         return this;
     }
 
-    public void setSistema(Sistema sistema) {
-        this.sistema = sistema;
+    public void setSueldomin(BigDecimal sueldomin) {
+        this.sueldomin = sueldomin;
     }
+    // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -142,10 +109,8 @@ public class ExchangeRate implements Serializable {
         return "ExchangeRate{" +
             "id=" + getId() +
             ", date='" + getDate() + "'" +
-            ", fromcurrency='" + getFromcurrency() + "'" +
-            ", tocurrency='" + getTocurrency() + "'" +
             ", conversionvalue='" + getConversionvalue() + "'" +
-            ", sistema='" + getSistema() + "'" +
+            ", sueldomin='" + getSueldomin() + "'" +
             "}";
     }
 }

@@ -31,7 +31,6 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import io.catwizard.bsrate.domain.enumeration.Sistema;
 /**
  * Test class for the ExchangeRateResource REST controller.
  *
@@ -44,17 +43,11 @@ public class ExchangeRateResourceIntTest {
     private static final LocalDate DEFAULT_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_DATE = LocalDate.now(ZoneId.systemDefault());
 
-    private static final String DEFAULT_FROMCURRENCY = "AAAAAAAAAA";
-    private static final String UPDATED_FROMCURRENCY = "BBBBBBBBBB";
-
-    private static final String DEFAULT_TOCURRENCY = "AAAAAAAAAA";
-    private static final String UPDATED_TOCURRENCY = "BBBBBBBBBB";
-
     private static final BigDecimal DEFAULT_CONVERSIONVALUE = new BigDecimal(1);
     private static final BigDecimal UPDATED_CONVERSIONVALUE = new BigDecimal(2);
 
-    private static final Sistema DEFAULT_SISTEMA = Sistema.NEGRO;
-    private static final Sistema UPDATED_SISTEMA = Sistema.CADIVI;
+    private static final BigDecimal DEFAULT_SUELDOMIN = new BigDecimal(1);
+    private static final BigDecimal UPDATED_SUELDOMIN = new BigDecimal(2);
 
     @Autowired
     private ExchangeRateRepository exchangeRateRepository;
@@ -78,7 +71,7 @@ public class ExchangeRateResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        ExchangeRateResource exchangeRateResource = new ExchangeRateResource(exchangeRateRepository);
+        final ExchangeRateResource exchangeRateResource = new ExchangeRateResource(exchangeRateRepository);
         this.restExchangeRateMockMvc = MockMvcBuilders.standaloneSetup(exchangeRateResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -94,10 +87,8 @@ public class ExchangeRateResourceIntTest {
     public static ExchangeRate createEntity(EntityManager em) {
         ExchangeRate exchangeRate = new ExchangeRate()
             .date(DEFAULT_DATE)
-            .fromcurrency(DEFAULT_FROMCURRENCY)
-            .tocurrency(DEFAULT_TOCURRENCY)
             .conversionvalue(DEFAULT_CONVERSIONVALUE)
-            .sistema(DEFAULT_SISTEMA);
+            .sueldomin(DEFAULT_SUELDOMIN);
         return exchangeRate;
     }
 
@@ -122,10 +113,8 @@ public class ExchangeRateResourceIntTest {
         assertThat(exchangeRateList).hasSize(databaseSizeBeforeCreate + 1);
         ExchangeRate testExchangeRate = exchangeRateList.get(exchangeRateList.size() - 1);
         assertThat(testExchangeRate.getDate()).isEqualTo(DEFAULT_DATE);
-        assertThat(testExchangeRate.getFromcurrency()).isEqualTo(DEFAULT_FROMCURRENCY);
-        assertThat(testExchangeRate.getTocurrency()).isEqualTo(DEFAULT_TOCURRENCY);
         assertThat(testExchangeRate.getConversionvalue()).isEqualTo(DEFAULT_CONVERSIONVALUE);
-        assertThat(testExchangeRate.getSistema()).isEqualTo(DEFAULT_SISTEMA);
+        assertThat(testExchangeRate.getSueldomin()).isEqualTo(DEFAULT_SUELDOMIN);
     }
 
     @Test
@@ -195,10 +184,8 @@ public class ExchangeRateResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(exchangeRate.getId().intValue())))
             .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
-            .andExpect(jsonPath("$.[*].fromcurrency").value(hasItem(DEFAULT_FROMCURRENCY.toString())))
-            .andExpect(jsonPath("$.[*].tocurrency").value(hasItem(DEFAULT_TOCURRENCY.toString())))
             .andExpect(jsonPath("$.[*].conversionvalue").value(hasItem(DEFAULT_CONVERSIONVALUE.intValue())))
-            .andExpect(jsonPath("$.[*].sistema").value(hasItem(DEFAULT_SISTEMA.toString())));
+            .andExpect(jsonPath("$.[*].sueldomin").value(hasItem(DEFAULT_SUELDOMIN.intValue())));
     }
 
     @Test
@@ -213,10 +200,8 @@ public class ExchangeRateResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(exchangeRate.getId().intValue()))
             .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
-            .andExpect(jsonPath("$.fromcurrency").value(DEFAULT_FROMCURRENCY.toString()))
-            .andExpect(jsonPath("$.tocurrency").value(DEFAULT_TOCURRENCY.toString()))
             .andExpect(jsonPath("$.conversionvalue").value(DEFAULT_CONVERSIONVALUE.intValue()))
-            .andExpect(jsonPath("$.sistema").value(DEFAULT_SISTEMA.toString()));
+            .andExpect(jsonPath("$.sueldomin").value(DEFAULT_SUELDOMIN.intValue()));
     }
 
     @Test
@@ -238,10 +223,8 @@ public class ExchangeRateResourceIntTest {
         ExchangeRate updatedExchangeRate = exchangeRateRepository.findOne(exchangeRate.getId());
         updatedExchangeRate
             .date(UPDATED_DATE)
-            .fromcurrency(UPDATED_FROMCURRENCY)
-            .tocurrency(UPDATED_TOCURRENCY)
             .conversionvalue(UPDATED_CONVERSIONVALUE)
-            .sistema(UPDATED_SISTEMA);
+            .sueldomin(UPDATED_SUELDOMIN);
 
         restExchangeRateMockMvc.perform(put("/api/exchange-rates")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -253,10 +236,8 @@ public class ExchangeRateResourceIntTest {
         assertThat(exchangeRateList).hasSize(databaseSizeBeforeUpdate);
         ExchangeRate testExchangeRate = exchangeRateList.get(exchangeRateList.size() - 1);
         assertThat(testExchangeRate.getDate()).isEqualTo(UPDATED_DATE);
-        assertThat(testExchangeRate.getFromcurrency()).isEqualTo(UPDATED_FROMCURRENCY);
-        assertThat(testExchangeRate.getTocurrency()).isEqualTo(UPDATED_TOCURRENCY);
         assertThat(testExchangeRate.getConversionvalue()).isEqualTo(UPDATED_CONVERSIONVALUE);
-        assertThat(testExchangeRate.getSistema()).isEqualTo(UPDATED_SISTEMA);
+        assertThat(testExchangeRate.getSueldomin()).isEqualTo(UPDATED_SUELDOMIN);
     }
 
     @Test
@@ -309,6 +290,8 @@ public class ExchangeRateResourceIntTest {
         assertThat(exchangeRate1).isNotEqualTo(exchangeRate2);
     }
 
+
+    // Ernesto
     @Test
     @Transactional
     public void searchByDate() throws Exception {
@@ -320,11 +303,9 @@ public class ExchangeRateResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(exchangeRate.getId().intValue()))
-            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
-            .andExpect(jsonPath("$.fromcurrency").value(DEFAULT_FROMCURRENCY.toString()))
-            .andExpect(jsonPath("$.tocurrency").value(DEFAULT_TOCURRENCY.toString()))
-            .andExpect(jsonPath("$.conversionvalue").value(DEFAULT_CONVERSIONVALUE.intValue()))
-            .andExpect(jsonPath("$.sistema").value(DEFAULT_SISTEMA.toString()));
+             .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
+             .andExpect(jsonPath("$.conversionvalue").value(DEFAULT_CONVERSIONVALUE.intValue()))
+             .andExpect(jsonPath("$.sueldomin").value(DEFAULT_SUELDOMIN.intValue()));
     }
 
     @Test
@@ -338,11 +319,9 @@ public class ExchangeRateResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(exchangeRate.getId().intValue()))
-            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
-            .andExpect(jsonPath("$.fromcurrency").value(DEFAULT_FROMCURRENCY.toString()))
-            .andExpect(jsonPath("$.tocurrency").value(DEFAULT_TOCURRENCY.toString()))
-            .andExpect(jsonPath("$.conversionvalue").value(DEFAULT_CONVERSIONVALUE.intValue()))
-            .andExpect(jsonPath("$.sistema").value(DEFAULT_SISTEMA.toString()));
+               .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
+               .andExpect(jsonPath("$.conversionvalue").value(DEFAULT_CONVERSIONVALUE.intValue()))
+               .andExpect(jsonPath("$.sueldomin").value(DEFAULT_SUELDOMIN.intValue()));
     }
 
     @Test
@@ -356,10 +335,26 @@ public class ExchangeRateResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(exchangeRate.getId().intValue()))
-            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
-            .andExpect(jsonPath("$.fromcurrency").value(DEFAULT_FROMCURRENCY.toString()))
-            .andExpect(jsonPath("$.tocurrency").value(DEFAULT_TOCURRENCY.toString()))
-            .andExpect(jsonPath("$.conversionvalue").value(DEFAULT_CONVERSIONVALUE.intValue()))
-            .andExpect(jsonPath("$.sistema").value(DEFAULT_SISTEMA.toString()));
+               .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
+               .andExpect(jsonPath("$.conversionvalue").value(DEFAULT_CONVERSIONVALUE.intValue()))
+               .andExpect(jsonPath("$.sueldomin").value(DEFAULT_SUELDOMIN.intValue()));
     }
+
+    @Test
+    @Transactional
+    public void getLast6Months() throws Exception {
+
+         // Initialize the database
+        exchangeRateRepository.saveAndFlush(exchangeRate);
+
+        // Get all the exchangeRateList
+        restExchangeRateMockMvc.perform(get("/api/exchange-rates/search/all-first-day-month"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(exchangeRate.getId().intValue())))
+            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
+            .andExpect(jsonPath("$.[*].conversionvalue").value(hasItem(DEFAULT_CONVERSIONVALUE.intValue())))
+            .andExpect(jsonPath("$.[*].sueldomin").value(hasItem(DEFAULT_SUELDOMIN.intValue())));
+    }
+
 }

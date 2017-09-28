@@ -16,10 +16,10 @@
                 "title": "Exchange Rate"
             },
             "date": "Date",
-            "fromcurrency": "Fromcurrency",
-            "tocurrency": "Tocurrency",
-            "conversionvalue": "Conversionvalue",
-            "sistema": "Sistema"
+            "conversionvalue": "Exchange Rate Bsf per $1",
+            "sueldomin": "Minimum Wage",
+            "sueldomindoll": "Monthly Minimum Wage $"
+
         }
     }
 }

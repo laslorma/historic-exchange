@@ -4,7 +4,7 @@
       "packageName": "io.catwizard.bsrate",
       "nativeLanguage": "es"
     },
-    "jhipsterVersion": "4.5.4",
+    "jhipsterVersion": "4.7.0",
     "baseName": "bsrate",
     "packageName": "io.catwizard.bsrate",
     "packageFolder": "io/catwizard/bsrate",
@@ -22,7 +22,7 @@
     "buildTool": "maven",
     "enableSocialSignIn": true,
     "jwtSecretKey": "e2e47e78a0b8327cebd3a1caf8a9233fd16c28be",
-    "clientFramework": "angular2",
+    "clientFramework": "angularX",
     "useSass": true,
     "clientPackageManager": "yarn",
     "applicationType": "monolith",

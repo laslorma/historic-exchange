@@ -14,11 +14,14 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface ExchangeRateRepository extends JpaRepository<ExchangeRate,Long> {
+public interface ExchangeRateRepository extends JpaRepository<ExchangeRate, Long> {
 
     ExchangeRate findByDate(LocalDate date);
 
     ExchangeRate findTopByOrderByDateDesc();
 
     ExchangeRate findTopByOrderByDateAsc();
+
+    @Query("SELECT e FROM ExchangeRate e WHERE DAY(e.date) = 1 ORDER BY e.id DESC")
+    List<ExchangeRate> searchAllFirstDayMonth();
 }
