@@ -13,18 +13,14 @@
 
             <!-- Table -->
             <!--<div *ngIf="exchangeRate.id"> ER: {{exchangeRateObject()}} </div>-->
-            
+
             <div *ngIf="exchangeRate.id">
                 Fecha: {{exchangeRate.date | date:'mediumDate'}}
-                <br>
-                Tasa: {{exchangeRate.conversionvalue | number}} Bsf por $1, 
-                <br>
-                Sueldo Minimo (Minimum Monthly Wage) ${{exchangeRate.sueldomin / exchangeRate.conversionvalue | number}},
-                <br>
-                Sueldo Minimo en Bsf: {{exchangeRate.sueldomin  | number}}
-                    
-                    
-                
+                <br> Tasa: {{exchangeRate.conversionvalue | number}} Bsf por $1,
+                <br> Sueldo Minimo (Minimum Monthly Wage) ${{exchangeRate.sueldomin / exchangeRate.conversionvalue | number}},
+                <br> Sueldo Minimo en Bsf: {{exchangeRate.sueldomin | number}}
+
+
                 <table class="table table-bordered table-sm table-responsive">
                     <thead>
                         <tr>
@@ -35,16 +31,16 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td> 
-                               <small> <input [(ngModel)]="dollars" type="number"></small>
+                            <td>
+                                <small> <input [(ngModel)]="dollars" type="number"></small>
                             </td>
                             <td>{{exchangeRate.conversionvalue * dollars | number}}</td>
                             <td>{{exchangeRate.conversionvalue * dollars * 1000 | number}}</td>
                         </tr>
                         <tr>
-                            <td>{{bolivaresFuerte / exchangeRate.conversionvalue  | number}}</td>
-                            <td> 
-                               <small> <input [(ngModel)]="bolivaresFuerte" type="number"></small>
+                            <td>{{bolivaresFuerte / exchangeRate.conversionvalue | number}}</td>
+                            <td>
+                                <small> <input [(ngModel)]="bolivaresFuerte" type="number"></small>
                             </td>
                             <td>{{exchangeRate.conversionvalue * dollars * 1000 | number}}</td>
                         </tr>
@@ -84,32 +80,43 @@
             | number}} BsF </p>
         <p *ngIf="firstExchangeRate?.date"> Primera fecha disponible en el sistema: {{firstExchangeRate.date | date:'shortDate'}}, Tasa: {{firstExchangeRate.conversionvalue
             | number}} BsF </p>
-        <br>
+        <p *ngIf="firstExchangeRate?.date">
 
-        <div class="table-responsive" ></div>
-            <table class="table table-striped">
-                <thead>
-                <th ><span jhiTranslate="bsrateApp.exchangeRate.date">Date</span> <span class="fa fa-sort"></span></th>
-                <th ><span jhiTranslate="bsrateApp.exchangeRate.conversionvalue">Conversionvalue</span> <span class="fa fa-sort"></span></th>
-                <th ><span jhiTranslate="bsrateApp.exchangeRate.sueldomin">BsF Sueldomin</span> <span class="fa fa-sort"></span></th>
+            Si una fecha no te funciona, prueba un dia cercano, algunos pocos dias no estan cargados.
+        </p>
+        <br>
+        <hr/>
+        <p jhiTranslate="home.tablenote">Esta es una tabla donde se puede ver el valor del dolar en BsF por principio de mes, y compararlo con el sueldo minimo
+            en $</p>
+        <div class="table-responsive"></div>
+        <table class="table table-striped">
+            <thead>
+                <th><span jhiTranslate="bsrateApp.exchangeRate.date">Date</span> <span class="fa fa-sort"></span></th>
+                <th><span jhiTranslate="bsrateApp.exchangeRate.conversionvalue">Conversionvalue</span> <span class="fa fa-sort"></span></th>
+                <th><span jhiTranslate="bsrateApp.exchangeRate.sueldomin">BsF Sueldomin</span> <span class="fa fa-sort"></span></th>
                 <th><span jhiTranslate="bsrateApp.exchangeRate.sueldomindoll">Sueldo Minimo Mensual $</span> <span class="fa fa-sort"></span></th>
                 </tr>
-                </thead>
-                <tbody>
+            </thead>
+            <tbody>
                 <tr *ngFor="let exchangeRate of allExchangeRateFirstMonth">
                     <td>{{exchangeRate.date | date:'mediumDate'}}</td>
-                    <td>{{exchangeRate.conversionvalue | currency : "BsF"}}</td>
-                    <td>{{exchangeRate.sueldomin | currency : "BsF"}}</td>
-                    <td>{{exchangeRate.sueldomin / exchangeRate.conversionvalue | currency : "USD"}}</td>
+                    <td>{{exchangeRate.conversionvalue }}</td>
+                    <td>BsF {{exchangeRate.sueldomin}}</td>
+                    <td>{{exchangeRate.sueldomin / exchangeRate.conversionvalue | currency : "USD" :true}}</td>
                 </tr>
-                </tbody>
-            </table>
-        </div>
-        
-        <p>El historial del dolar ha sido extraido de los archivos de <p><a href="https://dolartoday.com/">Dolar Today</a>. </p>
-        <br>
-        <p> Cualquier sugerencia por favor enviar a 
-                <a href="mailto:bshistorico@gmail.com" target="_top">bshistorico@gmail.com</a></p>
-       
+            </tbody>
+        </table>
     </div>
+
+    <p>El historial del dolar ha sido extraido de los archivos de
+        <p><a href="https://dolartoday.com/">Dolar Today</a>.
+            <br> Algunas ideas: Mostrar el precio con respecto al bitcoin en tiempo real usando referencias de intercambio
+            reales
+            <br> Mostrar la pension al lado del sueldo minimo
+        </p>
+        <br>
+        <p> Cualquier sugerencia por favor enviar a
+            <a href="mailto:bshistorico@gmail.com" target="_top">bshistorico@gmail.com</a></p>
+
+</div>
 </div>

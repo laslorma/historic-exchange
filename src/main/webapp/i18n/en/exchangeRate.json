@@ -16,7 +16,7 @@
                 "title": "Exchange Rate"
             },
             "date": "Date",
-            "conversionvalue": "Exchange Rate Bsf",
+            "conversionvalue": "Exchange Rate Bsf per $1",
             "sueldomin": "Minimum Wage",
             "sueldomindoll": "Monthly Minimum Wage $"
 
