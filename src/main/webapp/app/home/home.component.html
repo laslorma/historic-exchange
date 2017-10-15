@@ -102,7 +102,7 @@
                     <td>{{exchangeRate.date | date:'mediumDate'}}</td>
                     <td>{{exchangeRate.conversionvalue }}</td>
                     <td>BsF {{exchangeRate.sueldomin}}</td>
-                    <td>{{exchangeRate.sueldomin / exchangeRate.conversionvalue | currency : "USD" :true}}</td>
+                    <td>$ {{exchangeRate.sueldomin / exchangeRate.conversionvalue}}</td>
                 </tr>
             </tbody>
         </table>
